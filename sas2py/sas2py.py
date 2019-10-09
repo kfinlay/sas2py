@@ -79,6 +79,8 @@ def call_SAS(code_as_str, log_location=None):
 # export subset of variables from a sas7bdat file
 # to a pandas dataframe via a temporary csv on disk
 def sas2csv(infile, outfile, logdir, sqltxt=''):
+    if not os.path.exists(infile):
+        raise IOError("Input file {} does not exist".format(infile))
     filedir = os.path.dirname(os.path.realpath(infile))
     filebase = os.path.basename(os.path.realpath(infile))
     filebase = re.sub('\.sas7bdat(.)*$', '', filebase)
